@@ -1,6 +1,7 @@
-from . import minify_file, minify_directory
 import argparse
 from pathlib import Path
+
+from . import minify_file, minify_directory
 
 
 def main() -> None:

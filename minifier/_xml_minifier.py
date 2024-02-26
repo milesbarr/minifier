@@ -1,5 +1,5 @@
-from xml.dom import minidom
 import re
+from xml.dom import minidom
 
 
 def minify_xml(s: str) -> str:

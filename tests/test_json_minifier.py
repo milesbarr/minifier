@@ -1,5 +1,5 @@
-import unittest
 from minifier._json_minifier import minify_json
+import unittest
 
 
 class TestJSONMinifier(unittest.TestCase):

@@ -1,5 +1,5 @@
-import unittest
 from minifier._xml_minifier import minify_xml
+import unittest
 
 
 class TestXMLMinifier(unittest.TestCase):

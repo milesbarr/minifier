@@ -1,5 +1,5 @@
-import unittest
 from minifier._css_minifier import minify_css
+import unittest
 
 
 class TestCSSMinifier(unittest.TestCase):

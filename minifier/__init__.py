@@ -1,8 +1,10 @@
+import os
+
 from ._css_minifier import minify_css
 from ._html_minifier import minify_html
 from ._json_minifier import minify_json
 from ._xml_minifier import minify_xml
-import os
+
 
 __all__ = [
     "minify_css",

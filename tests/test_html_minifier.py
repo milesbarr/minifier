@@ -1,5 +1,5 @@
-import unittest
 from minifier._html_minifier import minify_html
+import unittest
 
 
 class TestHTMLMinifier(unittest.TestCase):

@@ -1,7 +1,8 @@
-from ._css_minifier import minify_css
-from ._json_minifier import minify_json
 from bs4 import BeautifulSoup, Comment
 import re
+
+from ._css_minifier import minify_css
+from ._json_minifier import minify_json
 
 
 def minify_html(html: str) -> str:
@@ -20,7 +21,7 @@ def minify_html(html: str) -> str:
     soup = BeautifulSoup(html, "html.parser")
 
     # Remove HTML comments.
-    for comment in soup.findAll(text=lambda text: isinstance(text, Comment)):
+    for comment in soup.findAll(string=lambda s: isinstance(s, Comment)):
         comment.extract()
 
     # Minify CSS within `<style>` tags.
