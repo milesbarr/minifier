@@ -1,1 +1,1 @@
-# Website Minifier
+# Minifier
