@@ -6,7 +6,7 @@ setup(
     description="A Python package to minify website assets.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/wearesystematic/website-minifier",
+    url="https://github.com/wearesystematic/minifier",
     packages=find_packages(),
     install_requires=["beautifulsoup4"],
     entry_points={
