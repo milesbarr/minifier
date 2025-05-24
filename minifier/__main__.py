@@ -1,16 +1,17 @@
 import argparse
 from pathlib import Path
 
-from minifier import minify_file, minify_dir
+from minifier import minify_file
 
 
 def main() -> None:
-    """Command-line interface for minifying web assets."""
+    """Command-line interface for minifying website assets."""
     parser = argparse.ArgumentParser(
         prog="minifier",
         description=(
-            "Minify web assets by removing unnecessary whitespace, comments, "
-            "and other redundant content while preserving functionality."
+            "Minify website assets by removing unnecessary whitespace, "
+            "comments, and other redundant content while preserving "
+            "functionality."
         ),
     )
     parser.add_argument(
@@ -18,7 +19,7 @@ def main() -> None:
         "--input",
         type=Path,
         required=True,
-        help="path to input file or directory",
+        help="path to input file",
         metavar="PATH",
     )
     parser.add_argument(
@@ -26,21 +27,12 @@ def main() -> None:
         "--output",
         type=Path,
         required=True,
-        help="path to output file or directory",
+        help="path to output file",
         metavar="PATH",
-    )
-    parser.add_argument(
-        "-r",
-        "--recursive",
-        action="store_true",
-        help="recursively process subdirectories",
     )
     args = parser.parse_args()
 
-    if args.input.is_dir():
-        minify_dir(args.input, args.output, recursive=args.recursive)
-    else:
-        minify_file(args.input, args.output)
+    minify_file(args.input, args.output)
 
 
 if __name__ == "__main__":

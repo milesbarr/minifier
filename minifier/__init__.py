@@ -12,6 +12,7 @@ __all__ = [
     "minify_html",
     "minify_json",
     "minify_xml",
+    "minify_format",
     "minify_file",
     "minify_dir",
 ]
@@ -30,64 +31,47 @@ _MINIFY_BY_EXTENSION = {
 }
 
 
-def minify_file(
-    input_path: str | bytes | os.PathLike,
-    output_path: str | bytes | os.PathLike,
-) -> None:
-    """Minify a single file based on its extension.
+def minify_format(s: str, format: str) -> str:
+    """Minify a string based on the format.
 
     Args:
-        input_path: Path to the input file
-        output_path: Path where the minified content will be written
-        verbose: If True, print processing information
+        s (str): The string to minify
+        format (str): The format of the string
+
+    Returns:
+        str: Minified string
+
+    Raises:
+        ValueError: If the format is not supported
+    """
+    ext = "." + format.lower().removeprefix(".")
+    minify = _MINIFY_BY_EXTENSION.get(ext, lambda s: s)
+    if not minify:
+        raise ValueError(f"Unsupported format: {format}")
+    return minify(s)
+
+
+def minify_file(
+    input_file: str | bytes | os.PathLike,
+    output_file: str | bytes | os.PathLike,
+) -> None:
+    """Minify a file based on its extension.
+
+    Args:
+        input_file (str | bytes | os.PathLike): Path to the input file
+        output_file (str | bytes | os.PathLike): Path to the output file
 
     Raises:
         ValueError: If the file extension is not supported
         IOError: If there are issues reading or writing files
     """
-    input_path = Path(input_path)
-    output_path = Path(output_path)
-
-    minify = _MINIFY_BY_EXTENSION.get(input_path.suffix.lower())
+    input_file = Path(input_file)
+    output_file = Path(output_file)
+    minify = _MINIFY_BY_EXTENSION.get(input_file.suffix.lower())
     if not minify:
-        raise ValueError(f"Unsupported file extension: {input_path.suffix}")
-
-    with input_path.open("r", encoding="utf-8") as f:
+        raise ValueError(f"Unsupported file extension: {input_file.suffix}")
+    with input_file.open() as f:
         content = f.read()
     content = minify(content)
-    with output_path.open("w", encoding="utf-8") as f:
+    with output_file.open("w") as f:
         f.write(content)
-
-
-def minify_dir(
-    input_dir: str | bytes | os.PathLike,
-    output_dir: str | bytes | os.PathLike,
-    recursive: bool = False,
-) -> None:
-    """Minify all supported files in a directory.
-
-    Args:
-        input_dir: Path to the input directory
-        output_dir: Path to the output directory
-        recursive: If True, process subdirectories recursively
-
-    Raises:
-        NotADirectoryError: If input_dir is not a directory
-        IOError: If there are issues reading or writing files
-    """
-    input_dir = Path(input_dir)
-    output_dir = Path(output_dir)
-
-    if not input_dir.is_dir():
-        raise NotADirectoryError(f"Input path is not a directory: {input_dir}")
-
-    pattern = "**/*" if recursive else "*"
-    for input_path in input_dir.glob(pattern):
-        if not input_path.is_file():
-            continue
-        if input_path.suffix.lower() not in _MINIFY_BY_EXTENSION:
-            continue
-        rel_path = input_path.relative_to(input_dir)
-        output_path = output_dir / rel_path
-        output_path.parent.mkdir(exist_ok=True)
-        minify_file(input_path, output_path)

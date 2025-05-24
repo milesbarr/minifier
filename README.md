@@ -1,6 +1,6 @@
 # Minifier
 
-A Python tool for minifying web assets by removing unnecessary whitespace,
+A Python tool for minifying website assets by removing unnecessary whitespace,
 comments, and other redundant content while preserving functionality.
 
 ## Features
@@ -29,19 +29,9 @@ pip install .
 
 ### Command-Line Interface
 
-Minify a single file:
+Minify a file:
 ```bash
 python -m minifier -i input.html -o output.html
-```
-
-Minify all supported files in a directory:
-```bash
-python -m minifier -i src/ -o dist/
-```
-
-Recursively minify files in a directory and its subdirectories:
-```bash
-python -m minifier -i src/ -o dist/ -r
 ```
 
 ## License

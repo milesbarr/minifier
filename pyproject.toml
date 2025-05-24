@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "minifier"
 version = "1.0.0"
-description = "A Python tool for minifying web assets."
+description = "A Python tool for minifying website assets."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
