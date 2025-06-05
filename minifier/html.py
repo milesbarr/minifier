@@ -2,12 +2,27 @@ import re
 
 from bs4 import BeautifulSoup, Comment
 
-from minifier.css import minify_css
-from minifier.json import minify_json
+from .css import minify_css
+from .json import minify_json
 
 
-def minify_html(html: str) -> str:
-    soup = BeautifulSoup(html, "html.parser")
+def minify_html(s: str) -> str:
+    """Minify an HTML string.
+
+    Args:
+        s (str): The HTML string to be minified.
+
+    Returns:
+        str: The minified HTML string.
+
+    Raises:
+        ValueError: If the input string is not valid HTML.
+    """
+    # Parse the HTML.
+    try:
+        soup = BeautifulSoup(s, "html.parser")
+    except Exception as e:
+        raise ValueError("Invalid HTML") from e
 
     # Remove comments.
     for comment in soup.find_all(string=lambda s: isinstance(s, Comment)):
@@ -22,9 +37,9 @@ def minify_html(html: str) -> str:
         script.string.replace_with(minify_json(script.string))
 
     # Convert to a string.
-    html = soup.encode(formatter="html5").decode()
+    s = soup.encode(formatter="html5").decode()
 
     # Collapse whitespace.
-    html = re.sub(r"\s+", " ", html)
+    s = re.sub(r"\s+", " ", s)
 
-    return html
+    return s

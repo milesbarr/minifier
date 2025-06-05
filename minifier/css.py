@@ -4,7 +4,6 @@ import re
 _CSS_NAMED_COLORS = {
     "black": "#000",
     "white": "#fff",
-    "red": "#f00",
     "fuchsia": "#f0f",
     "lime": "#0f0",
     "yellow": "#ff0",
@@ -14,6 +13,15 @@ _CSS_NAMED_COLORS = {
 
 
 def minify_css(s: str) -> str:
+    """Minify an CSS string.
+
+    Args:
+        s (str): The CSS string to be minified.
+
+    Returns:
+        str: The minified CSS string.
+    """
+
     # Remove comments.
     s = re.sub(r"\/\*[^*]*\*+([^/*][^*]*\*+)*\/", "", s, flags=re.DOTALL)
 

@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 
-from minifier import minify_file
+from . import minify_file
 
 
 def main() -> None:
@@ -19,7 +19,7 @@ def main() -> None:
         "--input",
         type=Path,
         required=True,
-        help="path to input file",
+        help="Input file",
         metavar="PATH",
     )
     parser.add_argument(
@@ -27,7 +27,7 @@ def main() -> None:
         "--output",
         type=Path,
         required=True,
-        help="path to output file",
+        help="Output file",
         metavar="PATH",
     )
     args = parser.parse_args()
