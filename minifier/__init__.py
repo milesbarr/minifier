@@ -73,12 +73,10 @@ def minify_file(
         raise ValueError(f"Unsupported file extension: {src.suffix}")
 
     # Read the contents from the source file.
-    with src.open() as f:
-        contents = f.read()
+    contents = src.read_text()
 
     # Minify the contents.
     contents = minify(contents)
 
     # Write the minified contents to destination file.
-    with dst.open("w") as f:
-        f.write(contents)
+    dst.write_text(contents)
