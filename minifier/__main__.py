@@ -15,24 +15,22 @@ def main() -> None:
         ),
     )
     parser.add_argument(
-        "-i",
-        "--input",
+        "src",
         type=Path,
         required=True,
-        help="Input file",
+        help="Path to the source file",
         metavar="PATH",
     )
     parser.add_argument(
-        "-o",
-        "--output",
+        "dst",
         type=Path,
         required=True,
-        help="Output file",
+        help="Path to the destination file",
         metavar="PATH",
     )
     args = parser.parse_args()
 
-    minify_file(args.input, args.output)
+    minify_file(args.src, args.dst)
 
 
 if __name__ == "__main__":

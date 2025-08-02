@@ -42,7 +42,7 @@ pip install .
 Minify a file:
 
 ```bash
-python -m minifier -i input.html -o output.html
+python -m minifier page.html minified.html
 ```
 
 ### Python API
@@ -52,7 +52,7 @@ Minify a file:
 ```python
 from minifier import minify_file
 
-minify_file("input.html", "output.html")
+minify_file("page.html", "minified.html")
 ```
 
 ## License

@@ -52,35 +52,33 @@ def minify_format(s: str, format: str) -> str:
 
 
 def minify_file(
-    input_file: str | bytes | os.PathLike,
-    output_file: str | bytes | os.PathLike,
+    src: str | bytes | os.PathLike, dst: str | bytes | os.PathLike
 ) -> None:
     """Minify a file based on its extension.
 
     Args:
-        input_file (str | bytes | os.PathLike): Path to the input file.
-        output_file (str | bytes | os.PathLike): Path to the output
-            file.
+        src (str | bytes | os.PathLike): Path to the source file.
+        dst (str | bytes | os.PathLike): Path to the destination file.
 
     Raises:
         ValueError: If the file extension is not supported.
         IOError: If there are issues reading or writing files.
     """
-    input_file = Path(input_file)
-    output_file = Path(output_file)
+    src = Path(src)
+    dst = Path(dst)
 
     # Get the minify function based on the file extension.
-    minify = _MINIFY_BY_EXTENSION.get(input_file.suffix.lower())
+    minify = _MINIFY_BY_EXTENSION.get(src.suffix.lower())
     if not minify:
-        raise ValueError(f"Unsupported file extension: {input_file.suffix}")
+        raise ValueError(f"Unsupported file extension: {src.suffix}")
 
-    # Read the contents from the input file.
-    with input_file.open() as f:
+    # Read the contents from the source file.
+    with src.open() as f:
         contents = f.read()
-    
+
     # Minify the contents.
     contents = minify(contents)
 
-    # Write the minified contents to output file.
-    with output_file.open("w") as f:
+    # Write the minified contents to destination file.
+    with dst.open("w") as f:
         f.write(contents)
