@@ -2,8 +2,8 @@ import re
 
 from bs4 import BeautifulSoup, Comment
 
-from .css import minify_css
-from .json import minify_json
+from minifier.css import minify_css
+from minifier.json import minify_json
 
 
 def minify_html(s: str) -> str:

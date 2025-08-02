@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 
-from . import minify_file
+from minifier import minify_file
 
 
 def main() -> None:

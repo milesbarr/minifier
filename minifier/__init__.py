@@ -1,10 +1,10 @@
 import os
 from pathlib import Path
 
-from .css import minify_css
-from .html import minify_html
-from .json import minify_json
-from .xml import minify_xml
+from minifier.css import minify_css
+from minifier.html import minify_html
+from minifier.json import minify_json
+from minifier.xml import minify_xml
 
 
 __all__ = [
