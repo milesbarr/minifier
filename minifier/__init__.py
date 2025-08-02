@@ -17,7 +17,7 @@ __all__ = [
     "minify_dir",
 ]
 
-_MINIFY_BY_EXTENSION = {
+_MINIFY_BY_EXT = {
     ".atom": minify_xml,
     ".css": minify_css,
     ".htm": minify_html,
@@ -45,7 +45,7 @@ def minify_format(s: str, format: str) -> str:
         ValueError: If the format is not supported.
     """
     ext = "." + format.lower().removeprefix(".")
-    minify = _MINIFY_BY_EXTENSION.get(ext, lambda s: s)
+    minify = _MINIFY_BY_EXT.get(ext, lambda s: s)
     if not minify:
         raise ValueError(f"Unsupported format: {format}")
     return minify(s)
@@ -68,15 +68,15 @@ def minify_file(
     dst = Path(dst)
 
     # Get the minify function based on the file extension.
-    minify = _MINIFY_BY_EXTENSION.get(src.suffix.lower())
+    minify = _MINIFY_BY_EXT.get(src.suffix.lower())
     if not minify:
         raise ValueError(f"Unsupported file extension: {src.suffix}")
 
-    # Read the contents from the source file.
-    contents = src.read_text()
+    # Read the string from the source file.
+    s = src.read_text()
 
-    # Minify the contents.
-    contents = minify(contents)
+    # Minify the string.
+    s = minify(s)
 
-    # Write the minified contents to destination file.
-    dst.write_text(contents)
+    # Write the minified string to destination file.
+    dst.write_text(s)
